@@ -357,8 +357,8 @@ to Verilog port names `d` and `q`.
 How to enable Verilator coverage?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can set option `vl_coverage`, `vl_line_coverage`, and `vl_toggle_coverage` to enable Verilator
-coverage (`--coverage`), line coverage (`--coverage-line`), and toggle coverage (`--coverage-toggle`).
+You can set option `vl_coverage`, `vl_line_coverage`, `vl_user_coverage`, and `vl_toggle_coverage` to enable Verilator
+coverage (`--coverage`), line coverage (`--coverage-line`), functional coverage (`--coverage-user`), and toggle coverage (`--coverage-toggle`).
 
 .. highlight:: python
 
@@ -370,6 +370,7 @@ coverage (`--coverage`), line coverage (`--coverage-line`), and toggle coverage 
         ...
         s.set_metadata( VerilogVerilatorImportPass.vl_coverage, True )
         s.set_metadata( VerilogVerilatorImportPass.vl_line_coverage, True )
+        s.set_metadata( VerilogVerilatorImportPass.vl_user_coverage, True )
         s.set_metadata( VerilogVerilatorImportPass.vl_toggle_coverage, True )
 
 How to suppress certian Verilator warnings?

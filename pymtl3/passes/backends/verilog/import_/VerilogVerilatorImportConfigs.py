@@ -47,6 +47,9 @@ class VerilogVerilatorImportConfigs( BasePassConfigs ):
     # Enable all verilator coverage
     "vl_line_coverage" : False,
 
+    # Enable verilator functional coverage
+    "vl_user_coverage" : False,
+
     # Enable all verilator coverage
     "vl_toggle_coverage" : False,
 
@@ -136,7 +139,7 @@ class VerilogVerilatorImportConfigs( BasePassConfigs ):
 
   Checkers = {
     ("enable", "verbose", "vl_enable_assert", "vl_line_trace", "vl_W_lint", "vl_W_style",
-     "vl_W_fatal", "vl_trace", "vl_coverage", "vl_line_coverage", "vl_toggle_coverage",
+     "vl_W_fatal", "vl_trace", "vl_coverage", "vl_line_coverage", "vl_user_coverage", "vl_toggle_coverage",
      "vl_trace_on_demand"):
       Checker( lambda v: isinstance(v, bool), "expects a boolean" ),
 
@@ -271,6 +274,7 @@ class VerilogVerilatorImportConfigs( BasePassConfigs ):
     trace       = "--trace" if s.vl_trace else ""
     coverage    = "--coverage" if s.vl_coverage else ""
     line_cov    = "--coverage-line" if s.vl_line_coverage else ""
+    user_cov    = "--coverage-user" if s.vl_user_coverage else ""
     toggle_cov  = "--coverage-toggle" if s.vl_toggle_coverage else ""
     warnings    = s._create_vl_warning_cmd()
 
@@ -278,7 +282,7 @@ class VerilogVerilatorImportConfigs( BasePassConfigs ):
       top_module, mk_dir, include, en_assert, opt_level, loop_unroll,
       # stmt_unroll, trace, warnings, flist, src, coverage,
       stmt_unroll, trace, warnings, src, vlibs, coverage,
-      line_cov, toggle_cov,
+      line_cov, user_cov, toggle_cov,
     ]
 
     return f"verilator --cc {' '.join(opt for opt in all_opts if opt)}"
@@ -331,6 +335,7 @@ class VerilogVerilatorImportConfigs( BasePassConfigs ):
     ld_libs = s.ld_libs
     coverage = "-DVM_COVERAGE" if s.vl_coverage or \
                                   s.vl_line_coverage or \
+                                  s.vl_user_coverage or \
                                   s.vl_toggle_coverage else ""
     return f"g++ {c_flags} {c_include_path} {ld_flags}"\
            f" -o {out_file} {c_src_files} {ld_libs} {coverage}"

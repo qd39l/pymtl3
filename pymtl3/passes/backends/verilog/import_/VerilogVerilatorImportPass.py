@@ -90,6 +90,13 @@ class VerilogVerilatorImportPass( BasePass ):
   #: Default value: ``False``
   vl_line_coverage    = MetadataKey(bool)
 
+  #: Enable Verilator functional coverage.
+  #:
+  #: Type: ``bool``; input
+  #:
+  #: Default value: ``False``
+  vl_user_coverage    = MetadataKey(bool)
+
   #: Enable Verilator toggle coverage.
   #:
   #: Type: ``bool``; input
@@ -653,7 +660,7 @@ class VerilogVerilatorImportPass( BasePass ):
     d = {}
     s._volatile_configs = [
       'verilog_hash',
-      'vl_line_trace', 'vl_coverage', 'vl_line_coverage', 'vl_toggle_coverage',
+      'vl_line_trace', 'vl_coverage', 'vl_line_coverage', 'vl_user_coverage', 'vl_toggle_coverage',
       'vl_mk_dir', 'vl_enable_assert',
       'vl_W_lint', 'vl_W_style', 'vl_W_fatal', 'vl_Wno_list',
       'vl_xinit', 'vl_trace',
